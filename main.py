@@ -10,13 +10,23 @@ class Link:
         self.node2 = node2
         self.distance = cost
 
+    def __eq__(self, other):
+        if self.node1 == other.node1 and self.node2 == other.node2:
+            return True
+        elif self.node2 == other.node1 and self.node1 == other.node2:
+            return True
+        else:
+            return False
+
 
 def get_cost(link: Link) -> int:
     return link.distance
 
 
-def same_node(link1: Link, link2: Link) -> bool:
+def same_link(link1: Link, link2: Link) -> bool:
     if link1.node1 == link2.node1 and link1.node2 == link2.node2:
+        return True
+    elif link1.node2 == link2.node1 and link1.node1 == link2.node2:
         return True
     else:
         return False
@@ -44,8 +54,9 @@ def dijkstra(start_node, end_node, graph_list):
     current_node = start_node
 
     # we can remove our own node from the list since looping back can't help
+    homeLink = Link(start_node, start_node, 0)
     for x in graph_list:
-        if x.node1 == start_node:
+        if same_link(x, x) or same_link(x, homeLink):
             graph_list.remove(x)
 
     # visit nodes
@@ -58,8 +69,8 @@ def dijkstra(start_node, end_node, graph_list):
 
             # now loop through graph_list to get cost, assign to unvisited distance
             for g in graph_list:
-                #if u.node1 == g.node1 and u.node2 == g.node2:
-                if same_node(u, g):
+                # if u.node1 == g.node1 and u.node2 == g.node2:
+                if same_link(u, g):
                     u.distance = get_cost(g)
 
             # append this visit + cost
@@ -70,11 +81,10 @@ def dijkstra(start_node, end_node, graph_list):
     for v in visited:
         print(v.node1)
 
-            #print(graph_list(x.distance))  #this is broken, need to ref original graph_list for distances
-
+        # print(graph_list(x.distance))  #this is broken, need to ref original graph_list for distances
 
     # debug print
-    #for x in unvisited:
+    # for x in unvisited:
     #    print(x.node1, x.node2, x.distance)
 
 
@@ -113,7 +123,7 @@ def main():
         Link(8, 2, 2),
         Link(8, 6, 6),
         Link(8, 7, 7),
-        ]
+    ]
 
     # take input for start point, set inputs to invalid points
     starting_node = -1
