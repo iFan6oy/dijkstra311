@@ -2,20 +2,32 @@
 # HW3 - Dijkstra's Algorithm
 # Group #... what group number are we?
 
-# this is a class to define nodes in the graph
+from typing import List
+
+
+# this is a class to define links between nodes (edges & costs) in the graph
 class Link:
-    def __init__(self, start_node, end_node, edge_cost):
-        self.node1 = start_node
-        self.node2 = end_node
-        self.distance = edge_cost
+    def __init__(self, node1, node2, cost):
+        self.node1 = node1
+        self.node2 = node2
+        self.distance = cost
+
+
+def djikstra(start_node, end_node, graph_list):
+    # the graph is passed in via a List containing Links
+    # a Link contains a start, end, and cost
+
+    # copy entire graph (where we haven't gone yet) to new structure
+    unvisited = graph_list
+    for i in range(len(unvisited)):
+        print(unvisited[i].node1, unvisited[i].node2, unvisited[i].distance)
 
 
 def main():
     print('CSC311 - Group Project - Dijkstra\'s Algorithm\n')
 
     # we need to represent the provided graph
-    # we will use the Link class from above to do this
-    # and capture them all in a list
+    # we will use the Link class from above to do this and capture them all in a list
     # (start_node, end_node, edge_cost)
     graph_list = [
         Link(0, 1, 4),
@@ -62,8 +74,12 @@ def main():
         prompt_text = "Please enter an ending node: "
         ending_node = int(input(prompt_text))
 
+    # debug check to make sure we got them
     print("starting: ", starting_node)
-    print ("ending: ", ending_node)
+    print("ending: ", ending_node)
+
+    djikstra(starting_node, ending_node, graph_list)
+
 
 
 # Init main function
