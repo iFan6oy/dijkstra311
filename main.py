@@ -45,14 +45,14 @@ def dijkstra(start_node, end_node, graph_list):
             # check node costs
             # print("cost:", g.distance)
 
-            # now loop through graph_list to get cost
+            # now loop through graph_list to get cost, assign to unvisited distance
             for g in graph_list:
                 if u.node1 == g.node1 and u.node2 == g.node2:
                     u.distance = g.distance
 
-            # append this visit to the visited list since it's new
+            # append this visit + cost
             visited.append(u)
-            # remove current unvisited[u] (since we visited it)
+            # remove current unvisited(u) (since we visited it)
             unvisited.remove(u)
 
     for v in visited:
