@@ -21,42 +21,38 @@ def djikstra(start_node, end_node, graph_list):
     unvisited = graph_list.copy()
 
     # mark all destinations "infinity" in unvisited graph
-    for x in unvisited:
-        x.distance = 0
+    for u in unvisited:
+        u.distance = 0
 
     # copy graph to visited and empty it
     visited = graph_list.copy()
     visited.clear()
 
-    # current_cost is our current running cost
+    # current_cost is our current running cost, current node is start_node
     current_cost = 0
+    current_node = start_node
 
-    # visit nodes I guess
-    for x in unvisited:
-        # check to see if we've visited this before
-        if x not in visited:
-            # append this visit to the visited list since it's new
-            visited.append(x)
+    # visit nodes (we can remove our own node first)
+    for u in unvisited:
+        for g in graph_list:
+            # check to see if we've visited this before
+            if u not in visited:
+                # append this visit to the visited list since it's new
+                visited.append(u)
+                print(u.node1, g.distance)
+                # check node costs
+                #print("cost:", g.distance)
+        # remove from unvisited
 
-            #check node costs
-            print(graph_list(x.distance))
+    for v in visited:
+        print(v.node1)
 
-
-
-
-
-
-
+            #print(graph_list(x.distance))  #this is broken, need to ref original graph_list for distances
 
 
     # debug print
     #for x in unvisited:
     #    print(x.node1, x.node2, x.distance)
-
-
-
-
-
 
 
 def main():
