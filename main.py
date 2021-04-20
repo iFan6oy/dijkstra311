@@ -2,19 +2,22 @@
 # HW3 - Dijkstra's Algorithm
 # Group #... what group number are we?
 
+# this is a class to define nodes in the graph
 class Link:
-    def __init__(self, node1, node2, distance):
-        self.node1 = node1
-        self.node2 = node2
-        self.distance = distance
+    def __init__(self, start_node, end_node, edge_cost):
+        self.node1 = start_node
+        self.node2 = end_node
+        self.distance = edge_cost
 
 
 def main():
     print('CSC311 - Group Project - Dijkstra\'s Algorithm\n')
 
-    # we need to represent the graph somehow
-    # (start, destination, cost)
-    graphlist = [
+    # we need to represent the provided graph
+    # we will use the Link class from above to do this
+    # and capture them all in a list
+    # (start_node, end_node, edge_cost)
+    graph_list = [
         Link(0, 1, 4),
         Link(0, 7, 8),
         Link(1, 0, 4),
@@ -43,9 +46,6 @@ def main():
         Link(8, 6, 6),
         Link(8, 7, 7),
         ]
-
-
-
 
 
 # Init main
