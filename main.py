@@ -2,8 +2,6 @@
 # HW3 - Dijkstra's Algorithm
 # Group #... what group number are we?
 
-from typing import List
-
 
 # this is a class to define links between nodes (edges & costs) in the graph
 class Link:
@@ -13,18 +11,20 @@ class Link:
         self.distance = cost
 
 
-def djikstra(start_node, end_node, graph_list):
+def dijkstra(start_node, end_node, graph_list):
     # the graph is passed in via a List containing Links
     # a Link contains a start, end, and cost
 
     # copy entire graph (where we haven't gone yet) to new structure named 'unvisited'
     unvisited = graph_list.copy()
 
-    # mark all destinations "infinity" in unvisited graph
+    # mark all destinations "infinity" (-1) in unvisited graph
+    # we can use -1 here since i don't think dijkstras works with negative
+    # cost values on edges
     for u in unvisited:
-        u.distance = 0
+        u.distance = -1
 
-    # copy graph to visited and empty it
+    # copy graph_list to visited and empty it
     visited = graph_list.copy()
     visited.clear()
 
@@ -32,17 +32,28 @@ def djikstra(start_node, end_node, graph_list):
     current_cost = 0
     current_node = start_node
 
-    # visit nodes (we can remove our own node first)
+    # we can remove our own node from the list since looping back can't help
+    for x in graph_list:
+        if x.node1 == start_node:
+            graph_list.remove(x)
+
+    # visit nodes
     for u in unvisited:
-        for g in graph_list:
-            # check to see if we've visited this before
-            if u not in visited:
-                # append this visit to the visited list since it's new
-                visited.append(u)
-                print(u.node1, g.distance)
-                # check node costs
-                #print("cost:", g.distance)
-        # remove from unvisited
+        # check to see if we've visited this before
+        if u not in visited:
+            # print(u.node1, g.distance)
+            # check node costs
+            # print("cost:", g.distance)
+
+            # now loop through graph_list to get cost
+            for g in graph_list:
+                if u.node1 == g.node1 and u.node2 == g.node2:
+                    u.distance = g.distance
+
+            # append this visit to the visited list since it's new
+            visited.append(u)
+            # remove current unvisited[u] (since we visited it)
+            unvisited.remove(u)
 
     for v in visited:
         print(v.node1)
@@ -93,8 +104,8 @@ def main():
         ]
 
     # take input for start point, set inputs to invalid points
-    starting_node = -9
-    ending_node = -9
+    starting_node = -1
+    ending_node = -1
 
     # get starting_node from user
     while not (0 <= starting_node <= 8):
@@ -110,7 +121,8 @@ def main():
     print("starting: ", starting_node)
     print("ending: ", ending_node)
 
-    djikstra(starting_node, ending_node, graph_list)
+    # get result from djik
+    result = dijkstra(starting_node, ending_node, graph_list)
 
 
 # Init main function
