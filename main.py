@@ -11,6 +11,17 @@ class Link:
         self.distance = cost
 
 
+def get_cost(link: Link) -> int:
+    return link.distance
+
+
+def same_node(link1: Link, link2: Link) -> bool:
+    if link1.node1 == link2.node1 and link1.node2 == link2.node2:
+        return True
+    else:
+        return False
+
+
 def dijkstra(start_node, end_node, graph_list):
     # the graph is passed in via a List containing Links
     # a Link contains a start, end, and cost
@@ -47,8 +58,9 @@ def dijkstra(start_node, end_node, graph_list):
 
             # now loop through graph_list to get cost, assign to unvisited distance
             for g in graph_list:
-                if u.node1 == g.node1 and u.node2 == g.node2:
-                    u.distance = g.distance
+                #if u.node1 == g.node1 and u.node2 == g.node2:
+                if same_node(u, g):
+                    u.distance = get_cost(g)
 
             # append this visit + cost
             visited.append(u)
