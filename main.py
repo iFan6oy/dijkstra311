@@ -26,6 +26,7 @@ def main():
         Link(2, 1, 8),
         Link(2, 3, 7),
         Link(2, 5, 7),
+        Link(2, 8, 2),
         Link(3, 2, 7),
         Link(3, 4, 9),
         Link(3, 5, 14),
@@ -47,7 +48,24 @@ def main():
         Link(8, 7, 7),
         ]
 
+    # take input for start point, set inputs to invalid points
+    starting_node = -9
+    ending_node = -9
 
-# Init main
+    # get starting_node from user
+    while not (0 <= starting_node <= 8):
+        prompt_text = "Please enter a starting node: "
+        starting_node = int(input(prompt_text))
+
+    # get ending_node from user
+    while not (0 <= ending_node <= 8):
+        prompt_text = "Please enter an ending node: "
+        ending_node = int(input(prompt_text))
+
+    print("starting: ", starting_node)
+    print ("ending: ", ending_node)
+
+
+# Init main function
 if __name__ == '__main__':
     main()
