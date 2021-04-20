@@ -17,10 +17,24 @@ def djikstra(start_node, end_node, graph_list):
     # the graph is passed in via a List containing Links
     # a Link contains a start, end, and cost
 
-    # copy entire graph (where we haven't gone yet) to new structure
+    # copy entire graph (where we haven't gone yet) to new structure named 'unvisited'
     unvisited = graph_list
-    for i in range(len(unvisited)):
-        print(unvisited[i].node1, unvisited[i].node2, unvisited[i].distance)
+
+    # mark all destinations "infinity" in unvisited graph
+    for x in unvisited:
+        x.distance = 0
+
+    # visit nodes I guess
+
+
+    # debug print
+    #for x in unvisited:
+    #    print(x.node1, x.node2, x.distance)
+
+
+
+
+
 
 
 def main():
@@ -74,12 +88,11 @@ def main():
         prompt_text = "Please enter an ending node: "
         ending_node = int(input(prompt_text))
 
-    # debug check to make sure we got them
+    # debug print to make sure we got them
     print("starting: ", starting_node)
     print("ending: ", ending_node)
 
     djikstra(starting_node, ending_node, graph_list)
-
 
 
 # Init main function
