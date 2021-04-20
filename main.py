@@ -18,13 +18,35 @@ def djikstra(start_node, end_node, graph_list):
     # a Link contains a start, end, and cost
 
     # copy entire graph (where we haven't gone yet) to new structure named 'unvisited'
-    unvisited = graph_list
+    unvisited = graph_list.copy()
 
     # mark all destinations "infinity" in unvisited graph
     for x in unvisited:
         x.distance = 0
 
+    # copy graph to visited and empty it
+    visited = graph_list.copy()
+    visited.clear()
+
+    # current_cost is our current running cost
+    current_cost = 0
+
     # visit nodes I guess
+    for x in unvisited:
+        # check to see if we've visited this before
+        if x not in visited:
+            # append this visit to the visited list since it's new
+            visited.append(x)
+
+            #check node costs
+            print(graph_list(x.distance))
+
+
+
+
+
+
+
 
 
     # debug print
