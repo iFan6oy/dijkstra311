@@ -89,9 +89,9 @@ def dijkstra(start_node, end_node, graph_list):
         # check to see if we've visited this before
         if u not in visited:
             # check for adjacency
-            if u.node1 == current_node
+            if u.node1 == current_node:
                 # is node 2 end node?
-
+                # TODO: fix this crap
 
 
             # loop through graph_list to get cost, assign to unvisited distance
