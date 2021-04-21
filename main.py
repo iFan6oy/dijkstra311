@@ -2,6 +2,8 @@
 # HW3 - Dijkstra's Algorithm
 # Group #... what group number are we?
 
+from typing import List
+import copy
 
 # this is a class to define links between nodes (edges & costs) in the graph
 class Link:
@@ -10,13 +12,13 @@ class Link:
         self.node2 = node2
         self.cost = cost
 
-    # def __eq__(self, other):
-    #     if self.node1 == other.node1 and self.node2 == other.node2:
-    #         return True
-    #     elif self.node2 == other.node1 and self.node1 == other.node2:
-    #         return True
-    #     else:
-    #         return False
+    def __eq__(self, other):
+        if self.node1 == other.node1 and self.node2 == other.node2:
+            return True
+        elif self.node2 == other.node1 and self.node1 == other.node2:
+            return True
+        else:
+            return False
 
 
 def get_cost(link: Link) -> int:
@@ -39,22 +41,23 @@ def dijkstra(start_node, end_node, graph_list):
     # current_cost is our current running cost, current node is start_node
     current_cost = 9999
     current_node = start_node
+    total_cost = 0
 
     # we can remove our own node from the list since looping back can't help
     # also, mark all destinations "infinity" (-1) in unvisited graph
     # we can use -1 here since i don't think dijkstras works with negative values on edges
-    start_link = Link(start_node, start_node, 0)
-    for x in graph_list:
-        # if same_link(x, x) or same_link(x, homelink):
-        if x == x or x == start_link:
-            graph_list.remove(x)
-        # if x.node1 == current_node:
-        #     graph_list.remove(x)
-        # if x.node2 == current_node:
-        #     graph_list.remove(x)
+    # start_link = Link(start_node, start_node, 0)
+    # for x in graph_list:
+    #     # if same_link(x, x) or same_link(x, homelink):
+    #     if x == x or x == start_link:
+    #         graph_list.remove(x)
+    #     if x.node1 == current_node:
+    #         graph_list.remove(x)
+    #     if x.node2 == current_node:
+    #         graph_list.remove(x)
 
     # copy reduced graph to new structure named 'unvisited'
-    unvisited = graph_list[:1]
+    unvisited = copy.deepcopy(graph_list)
 
     # mark all destinations "infinity" (-1) in unvisited graph
     # we can use -1 here since i don't think dijkstras works with negative
@@ -62,9 +65,8 @@ def dijkstra(start_node, end_node, graph_list):
     for u in unvisited:
         u.cost = -1
 
-    # copy graph_list to visited and empty it (TODO: figure out why I copied? Typecasting?)
-    visited = graph_list.copy()
-    visited.clear()
+    # make empty visited list
+    visited = []
 
     # visit nodes
     for u in unvisited:
@@ -72,18 +74,20 @@ def dijkstra(start_node, end_node, graph_list):
         if u not in visited:
             # loop through graph_list to get cost, assign to unvisited distance
             for g in graph_list:
-                # if u.node1 == g.node1 and u.node2 == g.node2:
+                #if u.node1 == g.node1 and u.node2 == g.node2:
                 # if same_link(u, g):
                 if u == g:
                     # compare cost to lowest current?
                     if g.cost < current_cost:
                         current_cost = g.cost
-                        u.cost = g.cost + current_cost
-            # append this visit + cost
-            visited.append(u)
+                        u.cost = current_cost
+                        # append this visit + cost
+                        visited.append(u)
+                    else:
+                        visited.append(u)
 
-            # remove current unvisited(u) (since we visited it)
-            unvisited.remove(u)
+        # remove current unvisited(u) (since we visited it)
+        unvisited.remove(u)
 
     for v in visited:
         print(v.node1, v.node2, v.cost)
