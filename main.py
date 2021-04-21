@@ -5,6 +5,7 @@
 from typing import List
 import copy
 
+
 # this is a class to define links between nodes (edges & costs) in the graph
 class Link:
     def __init__(self, node1, node2, cost):
@@ -32,6 +33,21 @@ def same_link(link1: Link, link2: Link) -> bool:
         return True
     else:
         return False
+
+def is_edge(node1: int, node2: int, graph_list: List) -> bool:
+    for g in graph_list:
+        if g.node1 == node1 and g.node2 == node2:
+            return True
+        else:
+            return False
+
+
+def edge_cost(node1: int, node2: int, graph_list: List) -> int:
+    for g in graph_list:
+        if g.node1 == node1 and g.node2 == node2:
+            return g.cost
+        else:
+            return -1
 
 
 def dijkstra(start_node, end_node, graph_list):
@@ -72,22 +88,31 @@ def dijkstra(start_node, end_node, graph_list):
     for u in unvisited:
         # check to see if we've visited this before
         if u not in visited:
+            # check for adjacency
+            if u.node1 == current_node
+                # is node 2 end node?
+
+
+
             # loop through graph_list to get cost, assign to unvisited distance
             for g in graph_list:
-                #if u.node1 == g.node1 and u.node2 == g.node2:
+                # if u.node1 == g.node1 and u.node2 == g.node2:
                 # if same_link(u, g):
                 if u == g:
                     # compare cost to lowest current?
                     if g.cost < current_cost:
                         current_cost = g.cost
                         u.cost = current_cost
+                        total_cost = u.cost + current_cost
+
                         # append this visit + cost
                         visited.append(u)
                     else:
                         visited.append(u)
+            #
 
         # remove current unvisited(u) (since we visited it)
-        unvisited.remove(u)
+        # unvisited.remove(u)
 
     for v in visited:
         print(v.node1, v.node2, v.cost)
