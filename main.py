@@ -14,6 +14,7 @@ class Link:
         self.cost = cost
 
     def __eq__(self, other):
+        # TODO: might want some type checking here for more advanced compares
         if self.node1 == other.node1 and self.node2 == other.node2:
             return True
         elif self.node2 == other.node1 and self.node1 == other.node2:
@@ -33,6 +34,7 @@ def same_link(link1: Link, link2: Link) -> bool:
         return True
     else:
         return False
+
 
 def is_edge(node1: int, node2: int, graph_list: List) -> bool:
     for g in graph_list:
